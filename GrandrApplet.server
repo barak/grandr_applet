@@ -1,0 +1,32 @@
+<oaf_info>
+
+<oaf_server iid="OAFIID:GrandrApplet_factory" 
+	    type="exe"
+            location="/usr/lib/gnome-panel/grandr">
+
+        <oaf_attribute name="repo_ids" type="stringv">
+                <item value="IDL:Bonobo/GenericFactory:1.0"/>
+                <item value="IDL:Bonobo/Unknown:1.0"/>
+        </oaf_attribute>
+        <oaf_attribute name="name" type="string" value="Display Geometry Switcher"/>
+        <oaf_attribute name="description" type="string" value="Quickly change display resolution and orientation."/>
+</oaf_server>
+
+<oaf_server iid="OAFIID:GrandrApplet" type="factory"
+	    location="OAFIID:GrandrApplet_factory">
+
+        <oaf_attribute name="repo_ids" type="stringv">
+                <item value="IDL:GNOME/Vertigo/PanelAppletShell:1.0"/>
+                <item value="IDL:Bonobo/Control:1.0"/>
+                <item value="IDL:Bonobo/Unknown:1.0"/>
+        </oaf_attribute>
+
+        <oaf_attribute name="name" type="string" value="Display Geometry Switcher"/>
+        <oaf_attribute name="description" type="string" value="Quickly change display resolution and orientation."/>
+        <oaf_attribute name="panel:category" type="string" value="Utility"/>
+        <oaf_attribute name="panel:icon" type="string" value="grandr.png"/>
+
+</oaf_server>
+
+</oaf_info>
+

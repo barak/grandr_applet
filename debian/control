@@ -1,0 +1,13 @@
+Source: gnome-randr-applet
+Section: gnome
+Priority: optional
+Maintainer: Sven Luther <luther@debian.org>
+Build-Depends: debhelper (>> 4.0.0), libgnomeui-dev, libpanel-applet2-dev, libxrender-dev, xlibs-dev (>> 4.3.0)
+Standards-Version: 3.6.1
+
+Package: gnome-randr-applet
+Architecture: any
+Depends: ${shlibs:Depends} ${misc:Depends}
+Description: Simple gnome-panel front end to the xrandr extension
+ Gnome-randr-applet is a simple gnome-panel front end to the xrandr
+ extension found in XFree86 4.3+ releases.

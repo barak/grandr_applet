@@ -1,0 +1,19 @@
+gnome-randr-applet (0.2-1) unstable; urgency=low
+
+  * XFree86 4.3.0-2 finally made it to unstable, so i can upload this one too.
+    (Closes: #190922)
+
+ -- Sven Luther <luther@debian.org>  Thu, 26 Feb 2004 12:07:24 +0100
+
+gnome-randr-applet (0.2-0.2) experimental; urgency=low
+
+  * Cleaned build depends (Thansk to Michel Daenzer). 
+
+ -- Sven Luther <luther@debian.org>  Thu, 11 Sep 2003 14:18:04 +0200
+
+gnome-randr-applet (0.2-0.1) experimental; urgency=low
+
+  * Initial (Experimental) Release.
+
+ -- Sven Luther <luther@debian.org>  Tue,  1 Apr 2003 15:41:28 +0200
+
