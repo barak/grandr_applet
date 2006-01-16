@@ -2,7 +2,7 @@ Source: gnome-randr-applet
 Section: gnome
 Priority: optional
 Maintainer: Sven Luther <luther@debian.org>
-Build-Depends: debhelper (>> 4.0.0), libgnomeui-dev, libpanel-applet2-dev, libxrender-dev, xlibs-dev (>> 4.3.0)
+Build-Depends: debhelper (>> 4.0.0), libgnomeui-dev, libpanel-applet2-dev, libxrender-dev, libx11-dev, libxrandr-dev, x-dev, libxt-dev
 Standards-Version: 3.6.1
 
 Package: gnome-randr-applet

@@ -1,3 +1,10 @@
+gnome-randr-applet (0.2-1.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Update build-deps for xlibs-dev removal; closes: #346698.
+
+ -- Justin Pryzby <justinpryzby@users.sf.net>  Mon, 16 Jan 2006 14:28:05 -0500
+
 gnome-randr-applet (0.2-1) unstable; urgency=low
 
   * XFree86 4.3.0-2 finally made it to unstable, so i can upload this one too.
