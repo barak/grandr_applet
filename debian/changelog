@@ -1,3 +1,23 @@
+gnome-randr-applet (0.2-2) unstable; urgency=low
+
+  * Acknowledge both 0.1-1.1 and 0.2-1.2  NMUs.
+  * Particular thanks to Steaphan Greene for having prepared this upload.
+
+ -- Sven Luther <luther@debian.org>  Mon,  6 Nov 2006 10:07:04 +0100
+
+gnome-randr-applet (0.2-1.2) unstable; urgency=low
+
+  * Non-maintainer upload
+  * Verified compliance with debian-policy 3.7.2.
+  * Removed empty changelog and NEWS files.
+  * Applied patch from Ubuntu by: Daniel Elstner <daniel.kitta@googlemail.com>
+  * Fix display of the current rotation setting.
+    (Closes: #329057)
+  * Avoid reversing the order of the rotation menu items.
+  * Use GINT_TO_POINTER() to fix pointer conversion warnings on amd64.
+
+ -- Steaphan Greene (Stea) <stea@cs.binghamton.edu>  Sun, 05 Nov 2006 14:11:06 -0500
+
 gnome-randr-applet (0.2-1.1) unstable; urgency=low
 
   * Non-maintainer upload.

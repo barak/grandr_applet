@@ -189,7 +189,7 @@ void
 menu_rotation_selected_cb (GtkMenuItem *menu_item,
 			   GrandrData  *grandr )
 {
-  int rot = (Rotation)gtk_object_get_data(GTK_OBJECT(menu_item), "rotation_value");
+  int rot = GPOINTER_TO_INT(gtk_object_get_data(GTK_OBJECT(menu_item), "rotation_value"));
 
   grandr->xr_current_rotation = 1 << rot;
     
@@ -200,8 +200,8 @@ void
 menu_size_selected_cb (GtkMenuItem *menu_item,
 		       GrandrData  *grandr )
 {
-  grandr->xr_current_size = (SizeID)gtk_object_get_data(GTK_OBJECT(menu_item), 
-							"size_index");
+  grandr->xr_current_size = GPOINTER_TO_INT(gtk_object_get_data(GTK_OBJECT(menu_item), 
+								"size_index"));
   xrandr_set_config( grandr );
 }
 
@@ -243,7 +243,7 @@ applet_button_release_event_cb (GtkWidget      *widget,
 
       while (cur != NULL)
 	{
-	  if (grandr->xr_current_size == (SizeID) gtk_object_get_data(GTK_OBJECT(cur->data), "size_index"))
+	  if (grandr->xr_current_size == GPOINTER_TO_INT(gtk_object_get_data(GTK_OBJECT(cur->data), "size_index")))
 	    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (cur->data), 
 					    TRUE);
 	  cur = g_slist_next(cur);
@@ -253,7 +253,11 @@ applet_button_release_event_cb (GtkWidget      *widget,
 
       while (cur != NULL)
 	{
-	  if ((1 << grandr->xr_current_rotation) == ((Rotation) gtk_object_get_data(GTK_OBJECT(cur->data), "rotation_value") & 0xf ))
+	  int rot;
+
+	  rot = GPOINTER_TO_INT(gtk_object_get_data(GTK_OBJECT(cur->data), "rotation_value"));
+
+	  if ((grandr->xr_current_rotation & 0xf) == (1 << rot))
 	    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (cur->data), 
 					    TRUE);
 	  cur = g_slist_next(cur);
@@ -326,7 +330,7 @@ grandr_applet_build_menu (GrandrData  *grandr)
       if (i == grandr->xr_current_size)
 	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menu_item), TRUE);
 
-      gtk_object_set_data(GTK_OBJECT (menu_item), "size_index", (gpointer)i );
+      gtk_object_set_data(GTK_OBJECT (menu_item), "size_index", GINT_TO_POINTER(i) );
 
       g_signal_connect (menu_item, "activate",
 			G_CALLBACK (menu_size_selected_cb), grandr );
@@ -346,7 +350,7 @@ grandr_applet_build_menu (GrandrData  *grandr)
       gtk_menu_shell_prepend (GTK_MENU_SHELL(grandr->menu), menu_item);
       gtk_widget_show (menu_item);
 
-      for (i = 0; i < 4; i ++) 
+      for (i = 3; i >= 0; --i) 
 	{
 	  if ((grandr->xr_rotations >> i) & 1)  
 	    {
@@ -355,7 +359,7 @@ grandr_applet_build_menu (GrandrData  *grandr)
 	      group_rotations = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menu_item));
 
 	      gtk_object_set_data(GTK_OBJECT (menu_item), "rotation_value", 
-				  (gpointer)i /*(grandr->xr_rotations >> i)*/ );
+				  GINT_TO_POINTER(i));
 
 	      if ((1 << i) == grandr->xr_current_rotation & 0xf)
 		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menu_item), TRUE);
@@ -367,7 +371,7 @@ grandr_applet_build_menu (GrandrData  *grandr)
 	      gtk_menu_shell_prepend (GTK_MENU_SHELL(grandr->menu),
 				     menu_item);
 
-	      grandr->rotate_menu_items = g_slist_append (grandr->rotate_menu_items, (gpointer)menu_item );
+	      grandr->rotate_menu_items = g_slist_prepend (grandr->rotate_menu_items, (gpointer)menu_item );
 
 	      gtk_widget_show (menu_item);
 	    }
