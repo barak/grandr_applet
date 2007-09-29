@@ -55,7 +55,7 @@ typedef struct
   /* Not yet Used  */
 
   GtkWidget              *scale;
-  GtkTooltips	         *tooltips;
+  GtkTooltip             *tooltips;
   PanelAppletOrient       orientation;
 
 } GrandrData; 

@@ -1,3 +1,14 @@
+gnome-randr-applet (0.2-2.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Replaced deprecated “GtkTooltips” with “GtkTooltip” (gtk2.12) in the
+    GrandrData structure (src/grandr.c), which is not yet used anyway
+    (Closes: #444519).
+  * Modified debian/rules to no longer ignore make distclean error, per
+    lintian.
+
+ -- Cyril Brulebois <cyril.brulebois@enst-bretagne.fr>  Sat, 29 Sep 2007 15:13:30 +0200
+
 gnome-randr-applet (0.2-2) unstable; urgency=low
 
   * Acknowledge both 0.1-1.1 and 0.2-1.2  NMUs.
