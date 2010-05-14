@@ -3,4 +3,8 @@
 build clean install binary-arch binary-indep binary:
 	dh $@
 
+override_dh_auto_install:
+	dh_auto_install
+	rm -r debian/gnome-randr-applet/usr/share/doc/grandr_applet
+
 .PHONY: build clean install binary-arch binary-indep binary
