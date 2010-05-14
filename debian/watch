@@ -1,0 +1,3 @@
+version=3
+http://sites.google.com/site/kdekorte2/grandr_applet \
+ grandr_applet-([\d\.]*)\.tar\.gz
