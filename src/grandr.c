@@ -22,6 +22,7 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkx.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include <X11/Xproto.h>
 #include <X11/Xlib.h>
@@ -29,6 +30,39 @@
 #include <X11/extensions/Xrender.h>
 
 #include "config.h"
+
+typedef enum _name_kind {
+    name_none = 0,
+    name_string = (1 << 0),
+    name_xid = (1 << 1),
+    name_index = (1 << 2),
+    name_preferred = (1 << 3),
+} name_kind_t;
+
+typedef struct {
+    name_kind_t	    kind;
+    char    	    *string;
+    XID	    	    xid;
+    int		    index;
+} name_t;
+
+typedef struct _crtc crtc_t;
+typedef struct _output	output_t;
+typedef struct _umode	umode_t;
+typedef struct _output_prop output_prop_t;
+
+struct _crtc {
+    name_t	    crtc;
+    Bool	    changing;
+    XRRCrtcInfo	    *crtc_info;
+
+    XRRModeInfo	    *mode_info;
+    int		    x;
+    int		    y;
+    Rotation	    rotation;
+    output_t	    **outputs;
+    int		    noutput;
+};
 
 typedef struct {
     GtkWidget *applet;
@@ -55,7 +89,9 @@ typedef struct {
 
     Rotation xr_rotations;
     Rotation xr_current_rotation;
-
+	
+	XRRScreenResources  *res;
+	
     /* Not yet Used  */
 
     //GtkWidget *scale;
@@ -120,6 +156,15 @@ static const BonoboUIVerb Context_menu_verbs[] = {
 
 BonoboGenericFactory *Applet_pointer;   // Pointer to the Applet
 
+static output_t	*outputs = NULL;
+static output_t	**outputs_tail = &outputs;
+static crtc_t	*crtcs;
+static umode_t	*umodes;
+static int	num_crtcs;
+static XRRScreenResources  *res;
+static int screen = -1;
+
+
 static void
 grandr_dialog_about(BonoboUIComponent * uic, GrandrData * grandr, const gchar * verbname)
 {
@@ -146,6 +191,7 @@ grandr_dialog_about(BonoboUIComponent * uic, GrandrData * grandr, const gchar * 
 
 static void xrandr_get_config(GrandrData * data)
 {
+	screen = DefaultScreen(GDK_DISPLAY());
     data->xr_screen_conf = XRRGetScreenInfo(GDK_DISPLAY(), GDK_ROOT_WINDOW());
 
     data->xr_current_size = XRRConfigCurrentConfiguration(data->xr_screen_conf,
@@ -154,6 +200,8 @@ static void xrandr_get_config(GrandrData * data)
     data->xr_sizes = XRRConfigSizes(data->xr_screen_conf, &data->xr_nsize);
 
     data->xr_rotations = XRRConfigRotations(data->xr_screen_conf, &data->xr_current_rotation);
+
+    
 }
 
 gboolean xrandr_set_config(GrandrData * grandr)
@@ -162,7 +210,7 @@ gboolean xrandr_set_config(GrandrData * grandr)
 
     if (grandr->xr_lock_updates)
         return FALSE;
-
+	
     status = XRRSetScreenConfig(GDK_DISPLAY(),
                                 grandr->xr_screen_conf,
                                 GDK_ROOT_WINDOW(),
@@ -186,6 +234,32 @@ void menu_size_selected_cb(GtkMenuItem * menu_item, GrandrData * grandr)
     xrandr_set_config(grandr);
 }
 
+void menu_output_selected(GtkMenuItem * menu_item, GrandrData * grandr)
+{
+	Status s;
+	int i;
+	gchar tmp_buf[128];
+	int sel_output = (SizeID) gtk_object_get_data(GTK_OBJECT(menu_item), "output_index");
+	grandr->res = XRRGetScreenResources(GDK_DISPLAY(), GDK_ROOT_WINDOW());
+    
+	i=sel_output;
+		XRROutputInfo	*output_info = XRRGetOutputInfo (GDK_DISPLAY(), grandr->res, grandr->res->outputs[i]);
+		if(output_info->crtc != None)
+					g_snprintf(tmp_buf, 128, "/usr/bin/xrandr --output %s --off",
+                			   output_info->name);
+        else
+        	g_snprintf(tmp_buf, 128, "/usr/bin/xrandr --output %s --auto",
+                			   output_info->name);
+		//fprintf(stderr,tmp_buf);
+		g_spawn_command_line_async(tmp_buf,NULL);
+		/*s = XRRSetCrtcConfig (GDK_DISPLAY(), grandr->res, output_info->crtc.xid, CurrentTime,
+	//		      output_info->crtc->x, output_info->crtc->y, None, output_info->crtc,rotation,
+		//	      rr_outputs, output_info->crtc->noutput);*/
+    
+//	
+//	outputs[sel_output]->crtc_info = NULL;
+	
+}
 
 GtkMenuPositionFunc applet_menu_position(GtkMenu * menu,
                           gint * x, gint * y, gboolean * push_in, gpointer * ptr_data)
@@ -276,7 +350,7 @@ static void grandr_applet_build_menu(GrandrData * grandr)
 {
     GtkWidget *menu_item;
     GSList *group = NULL, *group_rotations = NULL;
-    gint i;
+    gint i,c;
     gchar tmp_buf[128];
 
 /*    
@@ -346,7 +420,42 @@ static void grandr_applet_build_menu(GrandrData * grandr)
 
         gtk_widget_show(menu_item);
     }
-
+        menu_item = gtk_separator_menu_item_new();
+        gtk_menu_shell_append(GTK_MENU_SHELL(grandr->menu), menu_item);
+        gtk_widget_show(menu_item);
+	/* Outputs menu entries */
+	
+//	XRRScreenResources  *res;
+    grandr->res = XRRGetScreenResources(GDK_DISPLAY(), GDK_ROOT_WINDOW());
+    
+    for (i = 0; i < grandr->res->noutput; i++)
+    {
+		XRROutputInfo	*output_info = XRRGetOutputInfo (GDK_DISPLAY(), grandr->res, grandr->res->outputs[i]);
+		g_snprintf(tmp_buf, 128, "%s ",
+                   output_info->name);
+		
+        menu_item = gtk_check_menu_item_new_with_label( tmp_buf);
+    
+        gtk_object_set_data(GTK_OBJECT(menu_item), "output_index", (gpointer) i);
+    
+        if(output_info->connection>0)
+			gtk_widget_set_sensitive (menu_item,FALSE);
+		else
+			if(output_info->crtc != None)	
+	            gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menu_item), TRUE);	
+		
+        g_signal_connect(menu_item, "button-release-event", G_CALLBACK(menu_output_selected), grandr);
+        gtk_menu_shell_append(GTK_MENU_SHELL(grandr->menu), menu_item);
+		
+        grandr->size_menu_items = g_slist_append(grandr->size_menu_items, (gpointer) menu_item);
+        		
+			
+        gtk_widget_show(menu_item);
+	
+	
+        
+        
+	}
 
     gtk_widget_show(grandr->menu);
 
@@ -365,7 +474,7 @@ static void grandr_applet_new(PanelApplet * applet)
 #endif
 
     grandr = g_new0(GrandrData, 1);
-
+    
     panel_applet_set_background_widget(applet, GTK_WIDGET(applet));
 
     /* Defaults */
@@ -404,6 +513,7 @@ static void grandr_applet_new(PanelApplet * applet)
 
     gtk_widget_show_all(GTK_WIDGET(applet));
 }
+
 
 static gboolean grandr_applet_factory(PanelApplet * applet, const char *id, gpointer data)
 {
