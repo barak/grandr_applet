@@ -1,3 +1,13 @@
+gnome-randr-applet (0.4.1-2) UNRELEASED; urgency=low
+
+  * uscan support (debian/watch)
+  * update and expand info (debian/copyright)
+  * bump standards version (debian/control)
+  * refresh autotools (configure.in, Makefile.in, aclocal.m4, etc)
+  * dh --with autotools_dev (debian/rules)
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Sat, 11 Sep 2010 11:47:42 +0100
+
 gnome-randr-applet (0.4.1-1) unstable; urgency=low
 
   * New upstream version (closes: #453121)
