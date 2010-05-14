@@ -1,13 +1,17 @@
 Source: gnome-randr-applet
 Section: gnome
 Priority: optional
-Maintainer: Sven Luther <luther@debian.org>
-Build-Depends: debhelper (>> 4.0.0), libgnomeui-dev, libpanel-applet2-dev, libxrender-dev, libx11-dev, libxrandr-dev, x-dev, libxt-dev
-Standards-Version: 3.7.2
+Maintainer: Barak A. Pearlmutter <bap@debian.org>
+Build-Depends: debhelper (>= 7), libgnomeui-dev, libpanel-applet2-dev, libxrender-dev, libx11-dev, libxrandr-dev, x11proto-core-dev, libxt-dev
+Standards-Version: 3.8.4
+Homepage: http://sites.google.com/site/kdekorte2/grandr_applet
+Vcs-Git: git://git.debian.org/git/collab-maint/gnome-randr-applet.git
+Vcs-Browser: http://git.debian.org/?p=collab-maint/gnome-randr-applet.git
 
 Package: gnome-randr-applet
 Architecture: any
-Depends: ${shlibs:Depends} ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Simple gnome-panel front end to the xrandr extension
  Gnome-randr-applet is a simple gnome-panel front end to the xrandr
- extension found in XFree86 4.3+ releases.
+ X11 extension, which allows online activation/deactivation and
+ changing resolution of video output devices.
