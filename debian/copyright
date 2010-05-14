@@ -35,3 +35,8 @@ License:
 On Debian systems, the complete text of the GNU General
 Public License version 2 can be found in `/usr/share/common-licenses/GPL-2'.
 
+Patches:
+
+toggling outputs on/off patch in debian/patches/on-and-off from
+http://ubuntuforums.org/showthread.php?t=700270
+http://ubuntuforums.org/attachment.php?attachmentid=60001&d=1203339890
