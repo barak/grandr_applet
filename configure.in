@@ -1,0 +1,49 @@
+AC_PREREQ(2.52)
+
+AC_INIT(grandr_applet, 0.2, nothing)
+AC_CONFIG_SRCDIR(src/grandr.c)
+AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
+
+AM_MAINTAINER_MODE
+AM_CONFIG_HEADER(config.h)
+
+#AC_PROG_INTLTOOL([0.21])
+
+#AM_PROG_LIBTOOL
+AC_ISC_POSIX
+AC_PROG_CC
+AC_PROG_INSTALL
+AC_PROG_MAKE_SET
+
+
+#ALL_LINGUAS="cs de et fr hu it ms nl ru zh_CN"
+#AM_GLIB_GNU_GETTEXT
+#GETTEXT_PACKAGE=netspeed_applet
+#AC_SUBST(GETTEXT_PACKAGE)
+#AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", GETTEXT_PACKAGE)
+
+AC_PATH_XTRA
+
+ALL_X_LIBS="$X_LIBS $X_PRE_LIBS -lX11 $X_EXTRA_LIBS"
+
+PKG_CHECK_MODULES(GRANDR_APPLET, libgnomeui-2.0 libpanelapplet-2.0)
+AC_SUBST(GRANDR_APPLET_CFLAGS)
+AC_SUBST(GRANDR_APPLET_LIBS)
+AC_SUBST(ALL_X_LIBS)
+
+RANDR_LIBS=
+found_randr=no
+AC_CHECK_LIB(Xrandr, XRRSetScreenConfigAndRate,
+             [AC_CHECK_HEADER(X11/extensions/Xrandr.h,
+                              RANDR_LIBS=-lXrandr found_randr=yes,,
+                                [#include <X11/Xlib.h>])],
+               , -lXrender $ALL_X_LIBS )
+
+if test "x$found_randr" = "xno"; then
+   AC_MSG_ERROR(["Suitable Xrandr extension library not found - you need at least X 4.3"])
+fi
+
+AC_OUTPUT([
+Makefile
+src/Makefile
+])
