@@ -1,0 +1,20 @@
+0.4.1
+    Fix menu placement to be correct
+    Show randr version in about dialog
+    Add a couple of supported rotations
+    Make sure menu is built AFTER data is retrieved
+    Build popup menu on click rather than at start, allows for detection of new display
+    Make sure icon is transparent around the edges
+    Switch to using stock icons
+0.4
+    Create GrandrApplet.server as part of the configure process
+    Version bump
+    Swedish translation from Daniel Nylander
+0.3
+    Create self build spec file
+    Single use of scaled
+    Single use of pixbuf throughout code
+    Switch to using the newer about dialog
+    Add support for language translations
+    Fix problem with checkmark in rotation menu being wrong
+    Kevin to take over maintership of app from Matthew

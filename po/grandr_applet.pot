@@ -1,0 +1,48 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-12-13 08:43-0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/grandr.c:74
+msgid " Normal"
+msgstr ""
+
+#: src/grandr.c:75
+msgid " Left"
+msgstr ""
+
+#: src/grandr.c:77
+msgid " Inverted"
+msgstr ""
+
+#: src/grandr.c:81
+msgid " Right"
+msgstr ""
+
+#: src/grandr.c:89
+msgid " Horizontal Reflection"
+msgstr ""
+
+#: src/grandr.c:105
+msgid " Vertical Reflection"
+msgstr ""
+
+#: src/grandr.c:133
+#, c-format
+msgid ""
+"Dynamically change display resolution and orientation.\n"
+"randr protocol version %i.%i"
+msgstr ""
