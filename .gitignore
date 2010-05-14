@@ -1,0 +1,11 @@
+*.o
+/Makefile
+/config.h
+/config.log
+/config.status
+/po/Makefile
+/po/Makefile.in
+/po/POTFILES
+/src/Makefile
+/src/grandr
+/stamp-h1
