@@ -23,7 +23,7 @@
 
         <oaf_attribute name="name" type="string" value="Display Geometry Switcher"/>
         <oaf_attribute name="description" type="string" value="Quickly change display resolution and orientation."/>
-        <oaf_attribute name="panel:category" type="string" value="Utility"/>
+        <oaf_attribute name="panel:category" type="string" value="Utilities"/>
         <oaf_attribute name="panel:icon" type="string" value="display"/>
 
 </oaf_server>
