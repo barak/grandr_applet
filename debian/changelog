@@ -1,3 +1,10 @@
+gnome-randr-applet (0.4.1-1) UNRELEASED; urgency=low
+
+  * New upstream version
+  * New maintainer picking up package
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Fri, 14 May 2010 10:27:22 +0100
+
 gnome-randr-applet (0.2-2.1) unstable; urgency=low
 
   * Non-maintainer upload.
