@@ -1,16 +1,16 @@
-AC_PREREQ(2.52)
+AC_PREREQ(2.65)
 
-AC_INIT(grandr_applet, 0.4.1, nothing)
+AC_INIT([grandr_applet],[0.4.1],[nothing])
 AC_CONFIG_SRCDIR(src/grandr.c)
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
 
 AM_MAINTAINER_MODE
-AM_CONFIG_HEADER(config.h)
+AC_CONFIG_HEADERS([config.h])
 
 #AC_PROG_INTLTOOL([0.21])
 
 #AM_PROG_LIBTOOL
-AC_ISC_POSIX
+AC_SEARCH_LIBS([strerror],[cposix])
 AC_PROG_CC
 AC_PROG_INSTALL
 AC_PROG_MAKE_SET
@@ -44,10 +44,11 @@ if test "x$found_randr" = "xno"; then
    AC_MSG_ERROR(["Suitable Xrandr extension library not found - you need at least X 4.3"])
 fi
 
-AC_OUTPUT([
+AC_CONFIG_FILES([
 Makefile
 src/Makefile
 po/Makefile.in
 grandr_applet.spec
 GrandrApplet.server
 ])
+AC_OUTPUT
