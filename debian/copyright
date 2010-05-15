@@ -3,12 +3,16 @@ Tue,  1 Apr 2003 15:41:28 +0200.
 
 It was downloaded from
 http://handhelds.org/~mallum/downloadables/grandr_applet-0.2.tar.gz
+http://sites.google.com/site/kdekorte2/grandr_applet-0.4.1.tar.gz
 
-Upstream Author: Matthew Allum <mallum@openedhand.com>
+Upstream Author:
+ original author: Matthew Allum <mallum@openedhand.com>
+ current upstream maintainer: Kevin DeKorte <kdekorte@gmail.com>
 
 Copyright:
 
-   Copyright 2003 Matthew Allum <mallum@openedhand.com>
+   Copyright (C) 2003 Matthew Allum <mallum@openedhand.com>, OpenedHand Ltd.
+   Copyright (C) 2003 OpenedHand Ltd., 2007 Kevin DeKorte
 
 The Debian packaging is:
 
