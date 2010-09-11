@@ -1,3 +1,9 @@
+gnome-randr-applet (0.4.1-3) unstable; urgency=low
+
+  * build depend autotools-dev (closes: #596444) (debian/control)
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Sat, 11 Sep 2010 22:25:57 +0100
+
 gnome-randr-applet (0.4.1-2) unstable; urgency=low
 
   * uscan support (debian/watch)
