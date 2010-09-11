@@ -1,4 +1,4 @@
-gnome-randr-applet (0.4.1-2) UNRELEASED; urgency=low
+gnome-randr-applet (0.4.1-2) unstable; urgency=low
 
   * uscan support (debian/watch)
   * update and expand info (debian/copyright)
