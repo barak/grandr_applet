@@ -2,7 +2,7 @@ Source: gnome-randr-applet
 Section: gnome
 Priority: optional
 Maintainer: Barak A. Pearlmutter <bap@debian.org>
-Build-Depends: autotools-dev (>= 20100122.1~), debhelper (>= 7.2.5),
+Build-Depends: autotools-dev (>= 20100122.1~), debhelper (>= 8),
 	       libgnomeui-dev, libpanel-applet2-dev,
 	       libxrender-dev, libx11-dev, libxrandr-dev,
 	       x11proto-core-dev, libxt-dev
