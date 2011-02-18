@@ -1,9 +1,12 @@
-gnome-randr-applet (0.4.1-4) UNRELEASED; urgency=low
+gnome-randr-applet (0.4.1-4) unstable; urgency=low
 
   * dh --parallel
   * dh 8
-
- -- Barak A. Pearlmutter <bap@debian.org>  Thu, 02 Dec 2010 09:28:33 +0000
+  * accept Ubuntu patch "(0.4.1-3ubuntu1) natty"
+    by Matthias Klose <doko@ubuntu.com>, described thus:
+    Fix build failure, don't build with -DGDK_DISABLE_DEPRECATED.
+  
+ -- Barak A. Pearlmutter <bap@debian.org>  Fri, 18 Feb 2011 13:15:35 +0000
 
 gnome-randr-applet (0.4.1-3) unstable; urgency=low
 
