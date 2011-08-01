@@ -1,10 +1,12 @@
 #!/usr/bin/make -f
 
-build clean install binary-arch binary-indep binary:
+dh_targets=binary binary-arch binary-indep build build-arch build-indep clean install
+
+$(dh_targets) %:
 	dh $@ --parallel --with autotools_dev
+
+.PHONY: $(dh_targets)
 
 override_dh_auto_install:
 	dh_auto_install
 	rm -r debian/gnome-randr-applet/usr/share/doc/grandr_applet
-
-.PHONY: build clean install binary-arch binary-indep binary
